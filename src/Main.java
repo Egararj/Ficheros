@@ -11,7 +11,7 @@ public class Main {
         //Leer ejercicio2=new Leer();
         //Ficheros ejercicio3=new Ficheros();
         //MensajeEncriptadoConFichero ejercicio4=new MensajeEncriptadoConFichero();
-        Notas ejercicio5=new Notas();
-        //CuadradoMagico ejercicio=new CuadradoMagico(); 
+        //Notas ejercicio5=new Notas();
+        CuadradoMagico ejercicio=new CuadradoMagico(); 
     }
 }

@@ -101,7 +101,7 @@ public class Notas {
             return notaalta;
         }
             
-                    private int[] lineaArrayInt(String[] arrayCadena) {
+    private int[] lineaArrayInt(String[] arrayCadena) {
         int [] arrayInt=new int [arrayCadena.length];
         for(int x=0; x<arrayCadena.length; x++){
             arrayInt[x]= Integer.parseInt(arrayCadena[x]);
