@@ -72,14 +72,36 @@ public class Notas {
                 notasAlumno[x]= lineaArrayInt(br.readLine().split(","));
             }
             System.out.println(Arrays.deepToString(notasAlumno));
+            int notaAlta1= notamasalta(notasAlumno[0]);
+            int notaAlta2= notamasalta(notasAlumno[4]);
+            alumnosConNotaAlta(notaAlta1, notaAlta2, notasAlumno, alumnos);
             }catch(IOException e){
                 e.printStackTrace();
-        }
-                        
+            }
+                                                
+                                        
+            }
+                                        
+            private void alumnosConNotaAlta(int notaAlta1, int notaAlta2, int[][] notasAlumno, String[] alumnos) {
                 
+                for(int x=0; x<notasAlumno[0].length; x++){
+                    if(notasAlumno[0][x] == notaAlta1 && notasAlumno[4][x] == notaAlta2){
+                        System.out.println("Alumno con notas más alta: "+alumnos[x]+" "+ notaAlta1+" "+notaAlta2);
+                    }
+                }
+            }
+            
+                    private int notamasalta(int[] examen) {
+            int notaalta=0;
+            for(int x=0; x<examen.length; x++){
+                if(examen[x]>notaalta){
+                    notaalta= examen[x];
+                }
+            }
+            return notaalta;
         }
-                
-        private int[] lineaArrayInt(String[] arrayCadena) {
+            
+                    private int[] lineaArrayInt(String[] arrayCadena) {
         int [] arrayInt=new int [arrayCadena.length];
         for(int x=0; x<arrayCadena.length; x++){
             arrayInt[x]= Integer.parseInt(arrayCadena[x]);
