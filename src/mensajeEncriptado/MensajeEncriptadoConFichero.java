@@ -12,7 +12,7 @@ public class MensajeEncriptadoConFichero {
         FileReader fr;
         BufferedReader br;
         int[] mensajeEncriptado;
-        f = new File("mensajeencriptado.txt");
+        f = new File("mensajeencriptado2.txt");
         try{
             fr = new FileReader(f);
             br = new BufferedReader(fr);
