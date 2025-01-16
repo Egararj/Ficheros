@@ -99,8 +99,20 @@ public class MaquinaGolosinas {
                                                 }
         private void pedirGolosina(String[][] productos, int[][] productosVendido, int[][] cantidad, int tamañoMatriz) {
             Scanner sc = new Scanner(System.in);
+            sc=null;
             String opcion;
-            System.out.println("Elija el código de un producto");
+            boolean incorrecto = false;
+            
+            do{
+                System.out.println("Elija el código de un producto");
+                sc = new Scanner(System.in);
+                opcion = sc.nextLine();
+                sc=null;
+                if(opcion.length()<1 || opcion.length()>2){
+
+                }
+            }while(incorrecto);
+
             
             opcion = sc.nextLine();
             sc=null;
