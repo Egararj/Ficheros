@@ -61,11 +61,11 @@ public class MaquinaGolosinas {
                 }
                 else{
                     opcionIncorrecta = true;
-                    System.out.println("Intruduzca un valor correcto");
+                    System.out.println("Intruduzca un valor incorrecto");
                 }
                 }catch(InputMismatchException e){
                     opcionIncorrecta = true;
-                    System.out.println("Intruduzca un valor correcto");
+                    System.out.println("Intruduzca un valor incorrecto");
                 }
                 sc = null;
             }while(opcionIncorrecta);
@@ -80,7 +80,7 @@ public class MaquinaGolosinas {
                 break;
                     
                 case 3:
-                                        
+                    rellenarGolosinas(cantidad, tamañoMatriz);     
                 break;
                     
                 case 4:
@@ -95,27 +95,85 @@ public class MaquinaGolosinas {
         }catch (IOException e){
             e.printStackTrace();
         }
+
         
-                                                }
+    }
+
+    private void rellenarGolosinas(int[][] cantidad, int tamañoMatriz) {
+        Scanner sc = new Scanner(System.in);
+        sc=null;
+        String contraseña = "2017";
+        String contraseñaIntroducida = "";
+        int cantidadDeRelleno;
+        boolean rellenar = true;
+        boolean incorrecto = false;
+
+
+
+        System.out.println("Introduzca la contraseña");
+        sc = new Scanner(System.in);
+        contraseñaIntroducida = sc.nextLine();
+        sc=null;
+
+        if(!contraseña.equals(contraseñaIntroducida)){
+            System.out.println("Contraseña incorrecta");
+            return;
+        }
+
+        do{
+            System.out.println("Introduzca la posición a rellenar");
+            do
+            try{
+            sc = new Scanner(System.in);
+            cantidadDeRelleno = sc.nextInt();
+            incorrecto = false;
+            }catch(InputMismatchException e){
+                System.out.println("Entrada erronea, vuelva a intentarlo");
+                incorrecto = true;
+            }while(incorrecto);
+            sc=null;
+            
+        }while(rellenar);
+
+
+    }
         private void pedirGolosina(String[][] productos, int[][] productosVendido, int[][] cantidad, int tamañoMatriz) {
             Scanner sc = new Scanner(System.in);
             sc=null;
             String opcion;
             boolean incorrecto = false;
+            int fila, columna;
             
             do{
                 System.out.println("Elija el código de un producto");
+                incorrecto = false;
                 sc = new Scanner(System.in);
                 opcion = sc.nextLine();
                 sc=null;
-                if(opcion.length()<1 || opcion.length()>2){
-
+                if(opcion.length()<1 || opcion.length()>2) incorrecto = true;
+                try{
+                if(!Character.isDigit(opcion.charAt(0)) && !Character.isDigit(opcion.charAt(1))) incorrecto = true;
+                }catch (IndexOutOfBoundsException e){
+                    incorrecto = true;
                 }
+                try{
+                if(opcion.charAt(0)<tamañoMatriz && opcion.charAt(1)<tamañoMatriz) incorrecto = true;
+                }catch(StringIndexOutOfBoundsException e){
+                    incorrecto = true;
+                }
+                if (incorrecto) System.out.println("Código incorrecto");              
             }while(incorrecto);
 
-            
-            opcion = sc.nextLine();
-            sc=null;
+            fila = Integer.parseInt(opcion.substring(0,1));
+            columna = Integer.parseInt(opcion.substring(1, 2));
+
+            if(cantidad[fila][columna] == 0){
+                System.out.println("Producto agotado");
+                return;
+            }
+            cantidad[fila][columna]--;
+            productosVendido[fila][columna]++;
+            System.out.println("Has comprado 1 "+productos[fila][columna]);
             
         }
                                             
