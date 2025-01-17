@@ -80,11 +80,12 @@ public class MaquinaGolosinas {
                 break;
                     
                 case 3:
-                    rellenarGolosinas(cantidad, tamañoMatriz);     
+                    rellenarGolosinas(cantidad, productos,tamañoMatriz);     
                 break;
                     
                 case 4:
-                    //Mostrar que productos se han vendido, la cantidad y el número de dinero gastado  
+                    apagar(precio, productosVendido, productos, tamañoMatriz);
+                    apagar = false;
                 break;
                                     
                 default:
@@ -99,12 +100,30 @@ public class MaquinaGolosinas {
         
     }
 
-    private void rellenarGolosinas(int[][] cantidad, int tamañoMatriz) {
+    private void apagar(double[][] precio, int[][] productosVendido, String[][] productos, int tamañoMatriz) {
+        double totalVendido = 0;
+        for(int f=0; f<productosVendido.length; f++){
+            for(int c=0; c<productosVendido[f].length; c++){
+                if (productosVendido[f][c]>0){
+                    System.out.println(productosVendido[f][c]+" "+productos[f][c]+" "+precio[f][c]);
+                    totalVendido += precio[f][c];
+                }
+            }
+
+        }
+        System.out.printf("Total vendido = %.2f",totalVendido);
+
+    }
+
+    private void rellenarGolosinas(int[][] cantidad, String[][] productos, int tamañoMatriz) {
         Scanner sc = new Scanner(System.in);
         sc=null;
+        String opcion="";
         String contraseña = "2017";
         String contraseñaIntroducida = "";
-        int cantidadDeRelleno;
+        int opcion2 = 0;
+        int cantidadDeRelleno = 0;
+        int fila = 0, columna = 0;
         boolean rellenar = true;
         boolean incorrecto = false;
 
@@ -124,14 +143,69 @@ public class MaquinaGolosinas {
             System.out.println("Introduzca la posición a rellenar");
             do
             try{
-            sc = new Scanner(System.in);
-            cantidadDeRelleno = sc.nextInt();
-            incorrecto = false;
+                incorrecto = false;
+                sc = new Scanner(System.in);
+                opcion = sc.nextLine();
+                sc=null;
+                if(opcion.length()<1 || opcion.length()>2) incorrecto = true;
+                try{
+                if(!Character.isDigit(opcion.charAt(0)) && !Character.isDigit(opcion.charAt(1))) incorrecto = true;
+                }catch (IndexOutOfBoundsException e){
+                    incorrecto = true;
+                }
+                fila = Integer.parseInt(opcion.substring(0,1));
+                columna = Integer.parseInt(opcion.substring(1, 2));
+                try{
+                if(fila>=tamañoMatriz || columna>=tamañoMatriz) incorrecto = true;
+                }catch(StringIndexOutOfBoundsException e){
+                    incorrecto = true;
+                }
+                if (incorrecto) System.out.println("Código incorrecto");
             }catch(InputMismatchException e){
                 System.out.println("Entrada erronea, vuelva a intentarlo");
                 incorrecto = true;
             }while(incorrecto);
             sc=null;
+            
+            System.out.println("Introduzca la cantidad de relleno");
+            do
+            try{
+            sc = new Scanner(System.in);
+            cantidadDeRelleno = sc.nextInt();
+            incorrecto = false;
+            if(cantidadDeRelleno <0){
+                System.out.println("No puedes reducir la cantidad");
+                incorrecto = true;
+            }
+            }catch(InputMismatchException e){
+                System.out.println("Entrada erronea, vuelva a intentarlo");
+                incorrecto = true;
+            }while(incorrecto);
+            sc=null;
+
+            cantidad[fila][columna] += cantidadDeRelleno;
+            System.out.println("Se ha rellenado "+cantidadDeRelleno+" "+productos[fila][columna]);
+            System.out.println("¿Seguir rellenando?");
+            do{
+                incorrecto = false;
+                System.out.println("1.Si");
+                System.out.println("2.No");
+                try{
+                sc = new Scanner(System.in);
+                opcion2 = sc.nextInt();
+                incorrecto = false;
+                if (opcion2 == 1) rellenar = true;
+                if (opcion2 == 2) rellenar = false;
+                if (opcion2 != 1 && opcion2 != 2){
+                    System.out.println("Opción incorrecta, vuelva a intentarlo");
+                    incorrecto = true;
+                }
+                }catch(InputMismatchException e){
+                    System.out.println("Entrada erronea, vuelva a intentarlo");
+                    incorrecto = true;
+                }
+            }while(incorrecto);
+
             
         }while(rellenar);
 
@@ -156,16 +230,17 @@ public class MaquinaGolosinas {
                 }catch (IndexOutOfBoundsException e){
                     incorrecto = true;
                 }
+                fila = Integer.parseInt(opcion.substring(0,1));
+                columna = Integer.parseInt(opcion.substring(1, 2));
                 try{
-                if(opcion.charAt(0)<tamañoMatriz && opcion.charAt(1)<tamañoMatriz) incorrecto = true;
+                if(fila>=tamañoMatriz || columna>=tamañoMatriz) incorrecto = true;
                 }catch(StringIndexOutOfBoundsException e){
                     incorrecto = true;
                 }
                 if (incorrecto) System.out.println("Código incorrecto");              
             }while(incorrecto);
 
-            fila = Integer.parseInt(opcion.substring(0,1));
-            columna = Integer.parseInt(opcion.substring(1, 2));
+            
 
             if(cantidad[fila][columna] == 0){
                 System.out.println("Producto agotado");
