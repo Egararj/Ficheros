@@ -61,11 +61,11 @@ public class MaquinaGolosinas {
                 }
                 else{
                     opcionIncorrecta = true;
-                    System.out.println("Intruduzca un valor incorrecto");
+                    System.out.println("Intruduzca un valor correcto");
                 }
                 }catch(InputMismatchException e){
                     opcionIncorrecta = true;
-                    System.out.println("Intruduzca un valor incorrecto");
+                    System.out.println("Intruduzca un valor correcto");
                 }
                 sc = null;
             }while(opcionIncorrecta);
