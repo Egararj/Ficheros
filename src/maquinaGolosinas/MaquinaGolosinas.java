@@ -106,7 +106,7 @@ public class MaquinaGolosinas {
             for(int c=0; c<productosVendido[f].length; c++){
                 if (productosVendido[f][c]>0){
                     System.out.println(productosVendido[f][c]+" "+productos[f][c]+" "+precio[f][c]);
-                    totalVendido += precio[f][c];
+                    totalVendido += precio[f][c]*productosVendido[f][c];
                 }
             }
 
@@ -216,7 +216,7 @@ public class MaquinaGolosinas {
             sc=null;
             String opcion;
             boolean incorrecto = false;
-            int fila, columna;
+            int fila=0, columna=0;
             
             do{
                 System.out.println("Elija el código de un producto");
@@ -227,11 +227,12 @@ public class MaquinaGolosinas {
                 if(opcion.length()<1 || opcion.length()>2) incorrecto = true;
                 try{
                 if(!Character.isDigit(opcion.charAt(0)) && !Character.isDigit(opcion.charAt(1))) incorrecto = true;
-                }catch (IndexOutOfBoundsException e){
-                    incorrecto = true;
-                }
+                
                 fila = Integer.parseInt(opcion.substring(0,1));
                 columna = Integer.parseInt(opcion.substring(1, 2));
+                }catch (IndexOutOfBoundsException e){
+                incorrecto = true;
+                 }
                 try{
                 if(fila>=tamañoMatriz || columna>=tamañoMatriz) incorrecto = true;
                 }catch(StringIndexOutOfBoundsException e){
